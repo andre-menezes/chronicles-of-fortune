@@ -82,8 +82,8 @@ public class GlobalExceptionHandler {
         return new ErrorResponse(
                 HttpStatus.CONFLICT.value(),
                 HttpStatus.CONFLICT.getReasonPhrase(),
-                "KINGDOM_ALREADY_EXISTS",
                 ex.getMessage(),
+                "Conflict: " + ex.getMessage(),
                 Instant.now().toString(),
                 request.getRequestURI(),
                 null
@@ -96,8 +96,8 @@ public class GlobalExceptionHandler {
         return new ErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
                 HttpStatus.NOT_FOUND.getReasonPhrase(),
-                "KINGDOM_NOT_FOUND",
                 ex.getMessage(),
+                "Resource not found: " + ex.getMessage(),
                 Instant.now().toString(),
                 request.getRequestURI(),
                 null
