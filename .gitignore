@@ -54,3 +54,6 @@ pnpm-debug.log*
 
 # ─── Docker ──────────────────────────────────────────────────────────────────
 docker-compose.override.yml
+
+# ─── Claude Code ─────────────────────────────────────────────────────────────
+.claude/settings.local.json
