@@ -25,8 +25,9 @@ Sempre consultar antes de tomar decisões:
 
 ## Estado Atual
 
-- **Fase**: 2 de 7 (Fundação do Backend)
-- **Próximos entregáveis**: entidades Kingdom, KingdomState, PlayerProgress
+- **Fase**: 4 de 7 (Frontend Nuxt e Base PWA)
+- **Backend concluído**: Auth, Kingdom, NarrativeEvent engine, IncomeSource, ContextualTip, BehaviorLog
+- **Próximos entregáveis**: frontend Nuxt, configuração PWA, integração com a API
 
 ## Convenções
 
