@@ -2,6 +2,7 @@ package com.om.chroniclesoffortune.backend.domain.kingdom;
 
 import com.om.chroniclesoffortune.backend.domain.kingdom.dto.CreateKingdomRequest;
 import com.om.chroniclesoffortune.backend.domain.kingdom.dto.KingdomSummaryResponse;
+import com.om.chroniclesoffortune.backend.domain.kingdom.dto.UpdateKingdomRequest;
 import com.om.chroniclesoffortune.backend.domain.user.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +29,12 @@ public class KingdomController {
     @GetMapping("/me")
     public ResponseEntity<KingdomSummaryResponse> getMyKingdom(@AuthenticationPrincipal User user) {
         return ResponseEntity.ok(kingdomService.getMyKingdom(user));
+    }
+
+    @PutMapping("/me")
+    public ResponseEntity<KingdomSummaryResponse> update(
+            @AuthenticationPrincipal User user,
+            @Valid @RequestBody UpdateKingdomRequest request) {
+        return ResponseEntity.ok(kingdomService.updateKingdom(user, request));
     }
 }

@@ -60,6 +60,21 @@ public class KingdomService {
         return toSummary(kingdom, state);
     }
 
+    @Transactional
+    public KingdomSummaryResponse updateKingdom(User user, UpdateKingdomRequest request) {
+        Kingdom kingdom = kingdomRepository.findByUserId(user.getId())
+                .orElseThrow(() -> new NoSuchElementException("KINGDOM_NOT_FOUND"));
+
+        if (request.name() != null) kingdom.setName(request.name());
+
+        kingdomRepository.save(kingdom);
+
+        KingdomState state = kingdomStateRepository.findByKingdomId(kingdom.getId())
+                .orElseThrow(() -> new NoSuchElementException("KINGDOM_NOT_FOUND"));
+
+        return toSummary(kingdom, state);
+    }
+
     public KingdomSummaryResponse getMyKingdom(User user) {
         Kingdom kingdom = kingdomRepository.findByUserId(user.getId())
                 .orElseThrow(() -> new NoSuchElementException("KINGDOM_NOT_FOUND"));
