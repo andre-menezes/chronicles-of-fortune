@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/migrations/001-create-users.yaml
+  - include:
+      file: db/changelog/migrations/002-create-kingdoms.yaml
+  - include:
+      file: db/changelog/migrations/003-create-kingdom-states.yaml
+  - include:
+      file: db/changelog/migrations/004-create-player-progress.yaml
+  - include:
+      file: db/changelog/migrations/005-add-name-to-users.yaml

@@ -1,0 +1,85 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-create-player-progress
+      author: andre
+      changes:
+        - createTable:
+            tableName: player_progress
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: kingdom_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: level
+                  type: INTEGER
+                  defaultValueNumeric: 1
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: experience_points
+                  type: INTEGER
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: narrative_phase
+                  type: VARCHAR(50)
+
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: player_progress
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_player_progress_user
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: player_progress
+            baseColumnNames: kingdom_id
+            referencedTableName: kingdoms
+            referencedColumnNames: id
+            constraintName: fk_player_progress_kingdom
+            onDelete: CASCADE
+
+        - addUniqueConstraint:
+            tableName: player_progress
+            columnNames: user_id
+            constraintName: uk_player_progress_user
+
+        - addUniqueConstraint:
+            tableName: player_progress
+            columnNames: kingdom_id
+            constraintName: uk_player_progress_kingdom

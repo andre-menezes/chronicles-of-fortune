@@ -1,0 +1,69 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-create-kingdom-states
+      author: andre
+      changes:
+        - createTable:
+            tableName: kingdom_states
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: kingdom_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: gold
+                  type: DECIMAL(15,2)
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: mana
+                  type: DECIMAL(15,2)
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: resilience
+                  type: DECIMAL(15,2)
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: stability
+                  type: DECIMAL(5,2)
+                  defaultValueNumeric: 100
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: kingdom_states
+            baseColumnNames: kingdom_id
+            referencedTableName: kingdoms
+            referencedColumnNames: id
+            constraintName: fk_kingdom_states_kingdom
+            onDelete: CASCADE
+
+        - addUniqueConstraint:
+            tableName: kingdom_states
+            columnNames: kingdom_id
+            constraintName: uk_kingdom_states_kingdom
