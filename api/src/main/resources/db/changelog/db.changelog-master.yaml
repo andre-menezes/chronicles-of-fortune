@@ -9,3 +9,15 @@ databaseChangeLog:
       file: db/changelog/migrations/004-create-player-progress.yaml
   - include:
       file: db/changelog/migrations/005-add-name-to-users.yaml
+  - include:
+      file: db/changelog/migrations/006-create-narrative-events.yaml
+  - include:
+      file: db/changelog/migrations/007-create-choices.yaml
+  - include:
+      file: db/changelog/migrations/008-create-effects.yaml
+  - include:
+      file: db/changelog/migrations/009-create-trigger-rules.yaml
+  - include:
+      file: db/changelog/migrations/010-create-resolved-events.yaml
+  - include:
+      file: db/changelog/migrations/011-seed-narrative-events.yaml
