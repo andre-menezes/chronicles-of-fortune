@@ -49,11 +49,13 @@ Entregáveis:
 - entidades centrais mapeadas (`User`, `Kingdom`, `KingdomState`, `PlayerProgress`)
 - persistência com JPA/Hibernate
 - estrutura base de serviços, repositórios e controladores
+- autenticação JWT completa
+- engine de `NarrativeEvent` com choices, effects e trigger rules
+- CRUD de `IncomeSource`
+- CRUD de `ContextualTip` com seed inicial de 18 dicas
+- `BehaviorLog` com rastreamento assíncrono via Spring Events
 
-Pronto para avançar quando:
-
-- a aplicação conseguir ler e gravar as entidades nucleares
-- a modelagem inicial do banco estiver coerente com o domínio
+**Status: concluída.**
 
 ## Fase 3: Autenticação e Sessão
 

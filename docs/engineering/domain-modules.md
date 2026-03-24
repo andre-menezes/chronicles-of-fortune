@@ -119,8 +119,7 @@ Responsabilidade:
 Principais entidades:
 
 - `IncomeSource`
-- `IncomeType`
-- `IncomeHistory`
+- `IncomeType` (enum: `SALARY`, `RENTAL`, `FREELANCE`, `DIVIDENDS`, `OTHER`)
 
 Natureza:
 
@@ -133,13 +132,13 @@ Responsabilidade:
 - armazenar e exibir dicas financeiras por contexto da plataforma
 - dicas associadas a seções específicas da interface (dashboard, reserva de emergência, dívidas, etc.)
 - dicas acionadas após ações relevantes do usuário
-- categorias: `debt`, `budget`, `emergency-reserve`, `income-sources`, `conscious-spending`
+- categorias: `CASH_FLOW`, `EMERGENCY_RESERVE`, `DEBT`, `INCOME_SOURCES`, `CONSCIOUS_SPENDING`, `INTEREST`, `PLANNING`
 
 Principais entidades:
 
 - `ContextualTip`
-- `TipContext`
-- `Category`
+- `TipContext` (enum: `DASHBOARD`, `INCOME_SOURCE`, `EMERGENCY_RESERVE`, `DEBT`, `BUDGET`, `POST_ACTION`)
+- `TipCategory` (enum)
 
 Natureza:
 
@@ -157,8 +156,7 @@ Responsabilidade:
 Principais entidades:
 
 - `BehaviorLog`
-- `ActionLog`
-- `BehaviorEvent`
+- `UserAction` (enum: `KINGDOM_CREATED`, `NARRATIVE_CHOICE_RESOLVED`, `INCOME_SOURCE_CREATED`, `INCOME_SOURCE_UPDATED`, `INCOME_SOURCE_DELETED`, `TIPS_VIEWED`)
 
 Natureza:
 

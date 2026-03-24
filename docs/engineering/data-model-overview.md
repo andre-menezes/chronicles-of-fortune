@@ -80,10 +80,10 @@ Representa as origens de receita cadastradas pelo usuário dentro da plataforma.
 
 Guarda, em alto nível:
 
-- tipo de renda via `IncomeType` (salário CLT, aluguel, freelance, dividendos, outros)
-- valor ou estimativa de valor
-- periodicidade (mensal, variável, eventual)
-- vínculo com o `User`
+- tipo de renda via `IncomeType` (`SALARY`, `RENTAL`, `FREELANCE`, `DIVIDENDS`, `OTHER`)
+- valor (`amount`)
+- flag `active` para ativar/desativar sem remover
+- vínculo com `User` e `Kingdom`
 
 ### ContextualTip
 
@@ -92,9 +92,9 @@ Representa dicas financeiras exibidas em contextos específicos da plataforma.
 Guarda, em alto nível:
 
 - texto da dica
-- categoria financeira (`debt`, `budget`, `emergency-reserve`, `income-sources`, `conscious-spending`, `interest`, `planning`)
-- contexto de exibição via `TipContext` (seção da plataforma ou tipo de ação que a dispara)
-- nível de maturidade financeira ao qual se destina
+- categoria financeira via `TipCategory` (`CASH_FLOW`, `EMERGENCY_RESERVE`, `DEBT`, `INCOME_SOURCES`, `CONSCIOUS_SPENDING`, `INTEREST`, `PLANNING`)
+- contexto de exibição via `TipContext` (`DASHBOARD`, `INCOME_SOURCE`, `EMERGENCY_RESERVE`, `DEBT`, `BUDGET`, `POST_ACTION`)
+- flag `active` para ativar/desativar sem remover
 
 ### BehaviorLog
 
