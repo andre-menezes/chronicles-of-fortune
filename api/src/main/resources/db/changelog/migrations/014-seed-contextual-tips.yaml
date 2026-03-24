@@ -1,0 +1,166 @@
+databaseChangeLog:
+  - changeSet:
+      id: 014-seed-contextual-tips
+      author: chronicles
+      changes:
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "Você sabia que a maioria das pessoas não sabe para onde vai 30% da sua renda todo mês?" }
+              - column: { name: context, value: DASHBOARD }
+              - column: { name: category, value: CASH_FLOW }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "Ter mais de uma fonte de renda reduz sua vulnerabilidade financeira." }
+              - column: { name: context, value: DASHBOARD }
+              - column: { name: category, value: INCOME_SOURCES }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "Reserva de emergência não é luxo — é proteção." }
+              - column: { name: context, value: DASHBOARD }
+              - column: { name: category, value: EMERGENCY_RESERVE }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "Renda ativa depende do seu tempo. Renda passiva trabalha por você." }
+              - column: { name: context, value: INCOME_SOURCE }
+              - column: { name: category, value: INCOME_SOURCES }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "Alugar um bem que você possui é uma das formas mais simples de renda extra." }
+              - column: { name: context, value: INCOME_SOURCE }
+              - column: { name: category, value: INCOME_SOURCES }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "Freelance pode começar como renda complementar e crescer ao seu ritmo." }
+              - column: { name: context, value: INCOME_SOURCE }
+              - column: { name: category, value: INCOME_SOURCES }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "A reserva ideal cobre de 3 a 6 meses das suas despesas essenciais." }
+              - column: { name: context, value: EMERGENCY_RESERVE }
+              - column: { name: category, value: EMERGENCY_RESERVE }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "Comece pequeno. Guardar R$100 por mês já é começar." }
+              - column: { name: context, value: EMERGENCY_RESERVE }
+              - column: { name: category, value: EMERGENCY_RESERVE }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "Guarde a reserva em conta de fácil acesso, mas separada do seu dia a dia." }
+              - column: { name: context, value: EMERGENCY_RESERVE }
+              - column: { name: category, value: EMERGENCY_RESERVE }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "Antes de quitar qualquer dívida, saiba o tamanho real de todas elas." }
+              - column: { name: context, value: DEBT }
+              - column: { name: category, value: DEBT }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "O método bola de neve começa pela menor dívida para gerar motivação." }
+              - column: { name: context, value: DEBT }
+              - column: { name: category, value: DEBT }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "Juros do cartão de crédito podem dobrar uma dívida em menos de um ano." }
+              - column: { name: context, value: DEBT }
+              - column: { name: category, value: INTEREST }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "A regra 50/30/20: 50% para necessidades, 30% para desejos, 20% para poupança." }
+              - column: { name: context, value: BUDGET }
+              - column: { name: category, value: PLANNING }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "Categorize seus gastos por pelo menos um mês antes de cortar qualquer coisa." }
+              - column: { name: context, value: BUDGET }
+              - column: { name: category, value: CASH_FLOW }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "Necessidade é o que você precisa. Desejo é o que você quer. Impulso é o que você compra sem pensar." }
+              - column: { name: context, value: BUDGET }
+              - column: { name: category, value: CONSCIOUS_SPENDING }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "Cada dívida quitada libera mais renda para o próximo mês." }
+              - column: { name: context, value: POST_ACTION }
+              - column: { name: category, value: DEBT }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "Reserva de emergência é a base de tudo. Você está no caminho certo." }
+              - column: { name: context, value: POST_ACTION }
+              - column: { name: category, value: EMERGENCY_RESERVE }
+              - column: { name: active, valueBoolean: true }
+
+        - insert:
+            tableName: contextual_tips
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: text, value: "Gastos não planejados são o maior inimigo do orçamento. Mas o primeiro passo é reconhecê-los." }
+              - column: { name: context, value: POST_ACTION }
+              - column: { name: category, value: CONSCIOUS_SPENDING }
+              - column: { name: active, valueBoolean: true }
