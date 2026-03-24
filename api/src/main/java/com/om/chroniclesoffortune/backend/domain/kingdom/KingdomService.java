@@ -1,0 +1,73 @@
+package com.om.chroniclesoffortune.backend.domain.kingdom;
+
+import com.om.chroniclesoffortune.backend.domain.kingdom.dto.*;
+import com.om.chroniclesoffortune.backend.domain.user.User;
+import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NullMarked;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.NoSuchElementException;
+
+@NullMarked
+@Service
+@RequiredArgsConstructor
+public class KingdomService {
+
+    private final KingdomRepository kingdomRepository;
+    private final KingdomStateRepository kingdomStateRepository;
+    private final PlayerProgressRepository playerProgressRepository;
+
+    @Transactional
+    public KingdomSummaryResponse createKingdom(User user, CreateKingdomRequest request) {
+        if (kingdomRepository.findByUserId(user.getId()).isPresent()) {
+            throw new IllegalStateException("User already has a kingdom");
+        }
+
+        Kingdom kingdom = kingdomRepository.saveAndFlush(
+                Kingdom.builder()
+                        .user(user)
+                        .name(request.name())
+                        .build()
+        );
+
+        KingdomState state = kingdomStateRepository.save(
+                KingdomState.builder()
+                        .kingdom(kingdom)
+                        .gold(BigDecimal.ZERO)
+                        .mana(BigDecimal.ZERO)
+                        .resilience(BigDecimal.ZERO)
+                        .stability(new BigDecimal("100.00"))
+                        .build()
+        );
+
+        playerProgressRepository.save(
+                PlayerProgress.builder()
+                        .user(user)
+                        .kingdom(kingdom)
+                        .level(1)
+                        .experiencePoints(0)
+                        .build()
+        );
+
+        return toSummary(kingdom, state);
+    }
+
+    public KingdomSummaryResponse getMyKingdom(User user) {
+        Kingdom kingdom = kingdomRepository.findByUserId(user.getId())
+                .orElseThrow(() -> new NoSuchElementException("Kingdom not found for user"));
+
+        KingdomState state = kingdomStateRepository.findByKingdomId(kingdom.getId())
+                .orElseThrow(() -> new NoSuchElementException("Kingdom state not found"));
+
+        return toSummary(kingdom, state);
+    }
+
+    private KingdomSummaryResponse toSummary(Kingdom kingdom, KingdomState state) {
+        return new KingdomSummaryResponse(
+                new KingdomResponse(kingdom.getId(), kingdom.getName(), kingdom.getCreatedAt()),
+                new KingdomStateResponse(state.getGold(), state.getMana(), state.getResilience(), state.getStability())
+        );
+    }
+}

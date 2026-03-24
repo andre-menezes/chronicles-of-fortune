@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -69,6 +70,34 @@ public class GlobalExceptionHandler {
                 HttpStatus.UNAUTHORIZED.getReasonPhrase(),
                 "INVALID_CREDENTIALS",
                 "Invalid username or password",
+                Instant.now().toString(),
+                request.getRequestURI(),
+                null
+        );
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse handleIllegalState(IllegalStateException ex, HttpServletRequest request) {
+        return new ErrorResponse(
+                HttpStatus.CONFLICT.value(),
+                HttpStatus.CONFLICT.getReasonPhrase(),
+                "KINGDOM_ALREADY_EXISTS",
+                ex.getMessage(),
+                Instant.now().toString(),
+                request.getRequestURI(),
+                null
+        );
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleNoSuchElement(NoSuchElementException ex, HttpServletRequest request) {
+        return new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.NOT_FOUND.getReasonPhrase(),
+                "KINGDOM_NOT_FOUND",
+                ex.getMessage(),
                 Instant.now().toString(),
                 request.getRequestURI(),
                 null
