@@ -111,6 +111,74 @@ Retorna os dados do usuário autenticado.
 
 ---
 
+### `POST /api/v1/kingdoms`
+
+Cria o reino do usuário autenticado. Cada usuário pode ter apenas um reino.
+
+**Response `200 OK`:**
+```json
+{
+  "kingdom": {
+    "id": "uuid",
+    "name": "Reino das Finanças",
+    "createdAt": "2026-03-24T12:00:00"
+  },
+  "state": {
+    "gold": 0,
+    "mana": 0,
+    "resilience": 0,
+    "stability": 100.00
+  }
+}
+```
+
+**Request body:**
+```json
+{
+  "name": "Reino das Finanças"
+}
+```
+
+**Erros possíveis:**
+
+| Status | Code | Quando |
+|--------|------|--------|
+| 400 | `VALIDATION_ERROR` | Nome inválido (menos de 3 ou mais de 100 chars, ou em branco) |
+| 401 | — | Token ausente ou inválido |
+| 409 | `KINGDOM_ALREADY_EXISTS` | Usuário já possui um reino |
+
+---
+
+### `GET /api/v1/kingdoms/me`
+
+Retorna o reino e o estado atual do usuário autenticado.
+
+**Response `200 OK`:**
+```json
+{
+  "kingdom": {
+    "id": "uuid",
+    "name": "Reino das Finanças",
+    "createdAt": "2026-03-24T12:00:00"
+  },
+  "state": {
+    "gold": 0,
+    "mana": 0,
+    "resilience": 0,
+    "stability": 100.00
+  }
+}
+```
+
+**Erros possíveis:**
+
+| Status | Code | Quando |
+|--------|------|--------|
+| 401 | — | Token ausente ou inválido |
+| 404 | `KINGDOM_NOT_FOUND` | Usuário ainda não criou seu reino |
+
+---
+
 ## Convenções gerais
 
 - **Content-Type**: `application/json` em todas as requisições com body.
