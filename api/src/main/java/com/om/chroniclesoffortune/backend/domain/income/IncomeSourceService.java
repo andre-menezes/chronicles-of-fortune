@@ -27,7 +27,7 @@ public class IncomeSourceService {
         var kingdom = kingdomRepository.findByUserId(user.getId())
                 .orElseThrow(() -> new NoSuchElementException("KINGDOM_NOT_FOUND"));
 
-        IncomeSource saved = incomeSourceRepository.save(
+        IncomeSource saved = incomeSourceRepository.saveAndFlush(
                 IncomeSource.builder()
                         .user(user)
                         .kingdom(kingdom)
