@@ -1,0 +1,646 @@
+databaseChangeLog:
+  - changeSet:
+      id: 011-seed-narrative-events
+      author: chronicles
+      changes:
+
+        # ─── 1. the-month-begins ──────────────────────────────────────────────────
+        - insert:
+            tableName: narrative_events
+            columns:
+              - column: {name: id, value: 'a1000000-0000-0000-0000-000000000001'}
+              - column: {name: title, value: 'The Month Begins'}
+              - column: {name: description, value: 'A new month arrives. How will you manage your kingdom finances this cycle?'}
+              - column: {name: narrative_phase, value: null}
+              - column: {name: required_level, valueNumeric: 1}
+              - column: {name: priority, valueNumeric: 10}
+
+        # choices for the-month-begins
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b1000000-0000-0000-0000-000000000001'}
+              - column: {name: narrative_event_id, value: 'a1000000-0000-0000-0000-000000000001'}
+              - column: {name: text, value: 'Plan strategically and allocate gold to reserves'}
+              - column: {name: description, value: 'A wise ruler plans ahead, setting aside part of the treasury for uncertain times.'}
+              - column: {name: display_order, valueNumeric: 1}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b1000000-0000-0000-0000-000000000002'}
+              - column: {name: narrative_event_id, value: 'a1000000-0000-0000-0000-000000000001'}
+              - column: {name: text, value: 'Maintain current spending habits'}
+              - column: {name: description, value: 'No changes. The kingdom continues as before.'}
+              - column: {name: display_order, valueNumeric: 2}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b1000000-0000-0000-0000-000000000003'}
+              - column: {name: narrative_event_id, value: 'a1000000-0000-0000-0000-000000000001'}
+              - column: {name: text, value: 'Spend freely — there is always next month'}
+              - column: {name: description, value: 'Ignore planning and enjoy the present.'}
+              - column: {name: display_order, valueNumeric: 3}
+
+        # effects for the-month-begins choices
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c1000000-0000-0000-0000-000000000001'}
+              - column: {name: choice_id, value: 'b1000000-0000-0000-0000-000000000001'}
+              - column: {name: effect_type, value: 'RESILIENCE_CHANGE'}
+              - column: {name: value, valueNumeric: 10}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c1000000-0000-0000-0000-000000000002'}
+              - column: {name: choice_id, value: 'b1000000-0000-0000-0000-000000000001'}
+              - column: {name: effect_type, value: 'STABILITY_CHANGE'}
+              - column: {name: value, valueNumeric: 5}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c1000000-0000-0000-0000-000000000003'}
+              - column: {name: choice_id, value: 'b1000000-0000-0000-0000-000000000002'}
+              - column: {name: effect_type, value: 'STABILITY_CHANGE'}
+              - column: {name: value, valueNumeric: -2}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c1000000-0000-0000-0000-000000000004'}
+              - column: {name: choice_id, value: 'b1000000-0000-0000-0000-000000000003'}
+              - column: {name: effect_type, value: 'GOLD_CHANGE'}
+              - column: {name: value, valueNumeric: -20}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c1000000-0000-0000-0000-000000000005'}
+              - column: {name: choice_id, value: 'b1000000-0000-0000-0000-000000000003'}
+              - column: {name: effect_type, value: 'STABILITY_CHANGE'}
+              - column: {name: value, valueNumeric: -10}
+
+        # trigger rule: RANDOM 0.8
+        - insert:
+            tableName: trigger_rules
+            columns:
+              - column: {name: id, value: 'd1000000-0000-0000-0000-000000000001'}
+              - column: {name: narrative_event_id, value: 'a1000000-0000-0000-0000-000000000001'}
+              - column: {name: condition_type, value: 'RANDOM'}
+              - column: {name: operator, value: null}
+              - column: {name: threshold_value, value: null}
+              - column: {name: probability, valueNumeric: 0.800}
+
+        # ─── 2. the-invisible-trap ────────────────────────────────────────────────
+        - insert:
+            tableName: narrative_events
+            columns:
+              - column: {name: id, value: 'a2000000-0000-0000-0000-000000000002'}
+              - column: {name: title, value: 'The Invisible Trap'}
+              - column: {name: description, value: 'Hidden debts and forgotten obligations are closing in. The kingdom walls grow thin.'}
+              - column: {name: narrative_phase, value: null}
+              - column: {name: required_level, valueNumeric: 1}
+              - column: {name: priority, valueNumeric: 50}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b2000000-0000-0000-0000-000000000001'}
+              - column: {name: narrative_event_id, value: 'a2000000-0000-0000-0000-000000000002'}
+              - column: {name: text, value: 'Renegotiate debts and create a repayment plan'}
+              - column: {name: description, value: 'Face the obligations head-on and build a structured path forward.'}
+              - column: {name: display_order, valueNumeric: 1}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b2000000-0000-0000-0000-000000000002'}
+              - column: {name: narrative_event_id, value: 'a2000000-0000-0000-0000-000000000002'}
+              - column: {name: text, value: 'Ignore and hope the debts disappear'}
+              - column: {name: description, value: 'Deny the problem and carry on.'}
+              - column: {name: display_order, valueNumeric: 2}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c2000000-0000-0000-0000-000000000001'}
+              - column: {name: choice_id, value: 'b2000000-0000-0000-0000-000000000001'}
+              - column: {name: effect_type, value: 'STABILITY_CHANGE'}
+              - column: {name: value, valueNumeric: 15}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c2000000-0000-0000-0000-000000000002'}
+              - column: {name: choice_id, value: 'b2000000-0000-0000-0000-000000000001'}
+              - column: {name: effect_type, value: 'GOLD_CHANGE'}
+              - column: {name: value, valueNumeric: -15}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c2000000-0000-0000-0000-000000000003'}
+              - column: {name: choice_id, value: 'b2000000-0000-0000-0000-000000000002'}
+              - column: {name: effect_type, value: 'STABILITY_CHANGE'}
+              - column: {name: value, valueNumeric: -20}
+
+        # trigger rules: STABILITY < 50 AND RESILIENCE <= 0
+        - insert:
+            tableName: trigger_rules
+            columns:
+              - column: {name: id, value: 'd2000000-0000-0000-0000-000000000001'}
+              - column: {name: narrative_event_id, value: 'a2000000-0000-0000-0000-000000000002'}
+              - column: {name: condition_type, value: 'STABILITY_THRESHOLD'}
+              - column: {name: operator, value: 'LT'}
+              - column: {name: threshold_value, valueNumeric: 50}
+              - column: {name: probability, value: null}
+
+        - insert:
+            tableName: trigger_rules
+            columns:
+              - column: {name: id, value: 'd2000000-0000-0000-0000-000000000002'}
+              - column: {name: narrative_event_id, value: 'a2000000-0000-0000-0000-000000000002'}
+              - column: {name: condition_type, value: 'RESILIENCE_THRESHOLD'}
+              - column: {name: operator, value: 'LTE'}
+              - column: {name: threshold_value, valueNumeric: 0}
+              - column: {name: probability, value: null}
+
+        # ─── 3. the-unexpected-crisis ─────────────────────────────────────────────
+        - insert:
+            tableName: narrative_events
+            columns:
+              - column: {name: id, value: 'a3000000-0000-0000-0000-000000000003'}
+              - column: {name: title, value: 'The Unexpected Crisis'}
+              - column: {name: description, value: 'A sudden emergency strikes — a broken pipe, a medical bill, a car repair. The kingdom needs gold now.'}
+              - column: {name: narrative_phase, value: null}
+              - column: {name: required_level, valueNumeric: 1}
+              - column: {name: priority, valueNumeric: 30}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b3000000-0000-0000-0000-000000000001'}
+              - column: {name: narrative_event_id, value: 'a3000000-0000-0000-0000-000000000003'}
+              - column: {name: text, value: 'Use the emergency reserve'}
+              - column: {name: description, value: 'Draw from savings built for exactly this moment.'}
+              - column: {name: display_order, valueNumeric: 1}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b3000000-0000-0000-0000-000000000002'}
+              - column: {name: narrative_event_id, value: 'a3000000-0000-0000-0000-000000000003'}
+              - column: {name: text, value: 'Take out a loan to cover the expenses'}
+              - column: {name: description, value: 'Borrow gold and deal with the consequences later.'}
+              - column: {name: display_order, valueNumeric: 2}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c3000000-0000-0000-0000-000000000001'}
+              - column: {name: choice_id, value: 'b3000000-0000-0000-0000-000000000001'}
+              - column: {name: effect_type, value: 'GOLD_CHANGE'}
+              - column: {name: value, valueNumeric: -25}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c3000000-0000-0000-0000-000000000002'}
+              - column: {name: choice_id, value: 'b3000000-0000-0000-0000-000000000001'}
+              - column: {name: effect_type, value: 'STABILITY_CHANGE'}
+              - column: {name: value, valueNumeric: 5}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c3000000-0000-0000-0000-000000000003'}
+              - column: {name: choice_id, value: 'b3000000-0000-0000-0000-000000000002'}
+              - column: {name: effect_type, value: 'GOLD_CHANGE'}
+              - column: {name: value, valueNumeric: 25}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c3000000-0000-0000-0000-000000000004'}
+              - column: {name: choice_id, value: 'b3000000-0000-0000-0000-000000000002'}
+              - column: {name: effect_type, value: 'STABILITY_CHANGE'}
+              - column: {name: value, valueNumeric: -15}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c3000000-0000-0000-0000-000000000005'}
+              - column: {name: choice_id, value: 'b3000000-0000-0000-0000-000000000002'}
+              - column: {name: effect_type, value: 'RESILIENCE_CHANGE'}
+              - column: {name: value, valueNumeric: -10}
+
+        # trigger rule: RANDOM 0.3
+        - insert:
+            tableName: trigger_rules
+            columns:
+              - column: {name: id, value: 'd3000000-0000-0000-0000-000000000001'}
+              - column: {name: narrative_event_id, value: 'a3000000-0000-0000-0000-000000000003'}
+              - column: {name: condition_type, value: 'RANDOM'}
+              - column: {name: operator, value: null}
+              - column: {name: threshold_value, value: null}
+              - column: {name: probability, valueNumeric: 0.300}
+
+        # ─── 4. the-kingdoms-temptation ───────────────────────────────────────────
+        - insert:
+            tableName: narrative_events
+            columns:
+              - column: {name: id, value: 'a4000000-0000-0000-0000-000000000004'}
+              - column: {name: title, value: "The Kingdom's Temptation"}
+              - column: {name: description, value: 'The treasury is full. Merchants offer luxuries and investments. What does the wise ruler do?'}
+              - column: {name: narrative_phase, value: null}
+              - column: {name: required_level, valueNumeric: 1}
+              - column: {name: priority, valueNumeric: 20}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b4000000-0000-0000-0000-000000000001'}
+              - column: {name: narrative_event_id, value: 'a4000000-0000-0000-0000-000000000004'}
+              - column: {name: text, value: 'Resist the temptation and keep saving'}
+              - column: {name: description, value: 'Discipline over desire. The reserve grows stronger.'}
+              - column: {name: display_order, valueNumeric: 1}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b4000000-0000-0000-0000-000000000002'}
+              - column: {name: narrative_event_id, value: 'a4000000-0000-0000-0000-000000000004'}
+              - column: {name: text, value: 'Buy the luxury item'}
+              - column: {name: description, value: 'Enjoy the fruits of your labor.'}
+              - column: {name: display_order, valueNumeric: 2}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b4000000-0000-0000-0000-000000000003'}
+              - column: {name: narrative_event_id, value: 'a4000000-0000-0000-0000-000000000004'}
+              - column: {name: text, value: 'Postpone the decision for later'}
+              - column: {name: description, value: 'Neither yes nor no — the choice waits.'}
+              - column: {name: display_order, valueNumeric: 3}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c4000000-0000-0000-0000-000000000001'}
+              - column: {name: choice_id, value: 'b4000000-0000-0000-0000-000000000001'}
+              - column: {name: effect_type, value: 'RESILIENCE_CHANGE'}
+              - column: {name: value, valueNumeric: 15}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c4000000-0000-0000-0000-000000000002'}
+              - column: {name: choice_id, value: 'b4000000-0000-0000-0000-000000000002'}
+              - column: {name: effect_type, value: 'GOLD_CHANGE'}
+              - column: {name: value, valueNumeric: -50}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c4000000-0000-0000-0000-000000000003'}
+              - column: {name: choice_id, value: 'b4000000-0000-0000-0000-000000000002'}
+              - column: {name: effect_type, value: 'MANA_CHANGE'}
+              - column: {name: value, valueNumeric: 10}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c4000000-0000-0000-0000-000000000004'}
+              - column: {name: choice_id, value: 'b4000000-0000-0000-0000-000000000003'}
+              - column: {name: effect_type, value: 'STABILITY_CHANGE'}
+              - column: {name: value, valueNumeric: -3}
+
+        # trigger rule: GOLD > 100
+        - insert:
+            tableName: trigger_rules
+            columns:
+              - column: {name: id, value: 'd4000000-0000-0000-0000-000000000001'}
+              - column: {name: narrative_event_id, value: 'a4000000-0000-0000-0000-000000000004'}
+              - column: {name: condition_type, value: 'GOLD_THRESHOLD'}
+              - column: {name: operator, value: 'GT'}
+              - column: {name: threshold_value, valueNumeric: 100}
+              - column: {name: probability, value: null}
+
+        # ─── 5. two-treasuries ────────────────────────────────────────────────────
+        - insert:
+            tableName: narrative_events
+            columns:
+              - column: {name: id, value: 'a5000000-0000-0000-0000-000000000005'}
+              - column: {name: title, value: 'Two Treasuries'}
+              - column: {name: description, value: 'Your kingdom has grown. Advisors suggest spreading gold across multiple vaults to reduce risk.'}
+              - column: {name: narrative_phase, value: null}
+              - column: {name: required_level, valueNumeric: 2}
+              - column: {name: priority, valueNumeric: 20}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b5000000-0000-0000-0000-000000000001'}
+              - column: {name: narrative_event_id, value: 'a5000000-0000-0000-0000-000000000005'}
+              - column: {name: text, value: 'Diversify into multiple savings accounts'}
+              - column: {name: description, value: 'Spread the gold to minimize risk and earn better returns.'}
+              - column: {name: display_order, valueNumeric: 1}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b5000000-0000-0000-0000-000000000002'}
+              - column: {name: narrative_event_id, value: 'a5000000-0000-0000-0000-000000000005'}
+              - column: {name: text, value: 'Keep everything in one vault'}
+              - column: {name: description, value: 'Simplicity first. One place, one control.'}
+              - column: {name: display_order, valueNumeric: 2}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c5000000-0000-0000-0000-000000000001'}
+              - column: {name: choice_id, value: 'b5000000-0000-0000-0000-000000000001'}
+              - column: {name: effect_type, value: 'RESILIENCE_CHANGE'}
+              - column: {name: value, valueNumeric: 20}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c5000000-0000-0000-0000-000000000002'}
+              - column: {name: choice_id, value: 'b5000000-0000-0000-0000-000000000001'}
+              - column: {name: effect_type, value: 'XP_GRANT'}
+              - column: {name: value, valueNumeric: 50}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c5000000-0000-0000-0000-000000000003'}
+              - column: {name: choice_id, value: 'b5000000-0000-0000-0000-000000000002'}
+              - column: {name: effect_type, value: 'STABILITY_CHANGE'}
+              - column: {name: value, valueNumeric: -5}
+
+        # trigger rule: LEVEL >= 2
+        - insert:
+            tableName: trigger_rules
+            columns:
+              - column: {name: id, value: 'd5000000-0000-0000-0000-000000000001'}
+              - column: {name: narrative_event_id, value: 'a5000000-0000-0000-0000-000000000005'}
+              - column: {name: condition_type, value: 'LEVEL_THRESHOLD'}
+              - column: {name: operator, value: 'GTE'}
+              - column: {name: threshold_value, valueNumeric: 2}
+              - column: {name: probability, value: null}
+
+        # ─── 6. the-growing-burden ────────────────────────────────────────────────
+        - insert:
+            tableName: narrative_events
+            columns:
+              - column: {name: id, value: 'a6000000-0000-0000-0000-000000000006'}
+              - column: {name: title, value: 'The Growing Burden'}
+              - column: {name: description, value: 'Expenses have grown faster than income. The kingdom stability is crumbling under the weight.'}
+              - column: {name: narrative_phase, value: null}
+              - column: {name: required_level, valueNumeric: 1}
+              - column: {name: priority, valueNumeric: 40}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b6000000-0000-0000-0000-000000000001'}
+              - column: {name: narrative_event_id, value: 'a6000000-0000-0000-0000-000000000006'}
+              - column: {name: text, value: 'Create a spending reduction plan'}
+              - column: {name: description, value: 'Identify waste and cut unnecessary expenses systematically.'}
+              - column: {name: display_order, valueNumeric: 1}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b6000000-0000-0000-0000-000000000002'}
+              - column: {name: narrative_event_id, value: 'a6000000-0000-0000-0000-000000000006'}
+              - column: {name: text, value: 'Ignore the burden and continue spending'}
+              - column: {name: description, value: 'Hope the situation resolves itself.'}
+              - column: {name: display_order, valueNumeric: 2}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c6000000-0000-0000-0000-000000000001'}
+              - column: {name: choice_id, value: 'b6000000-0000-0000-0000-000000000001'}
+              - column: {name: effect_type, value: 'STABILITY_CHANGE'}
+              - column: {name: value, valueNumeric: 20}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c6000000-0000-0000-0000-000000000002'}
+              - column: {name: choice_id, value: 'b6000000-0000-0000-0000-000000000001'}
+              - column: {name: effect_type, value: 'XP_GRANT'}
+              - column: {name: value, valueNumeric: 30}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c6000000-0000-0000-0000-000000000003'}
+              - column: {name: choice_id, value: 'b6000000-0000-0000-0000-000000000002'}
+              - column: {name: effect_type, value: 'STABILITY_CHANGE'}
+              - column: {name: value, valueNumeric: -25}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c6000000-0000-0000-0000-000000000004'}
+              - column: {name: choice_id, value: 'b6000000-0000-0000-0000-000000000002'}
+              - column: {name: effect_type, value: 'RESILIENCE_CHANGE'}
+              - column: {name: value, valueNumeric: -10}
+
+        # trigger rule: STABILITY < 40
+        - insert:
+            tableName: trigger_rules
+            columns:
+              - column: {name: id, value: 'd6000000-0000-0000-0000-000000000001'}
+              - column: {name: narrative_event_id, value: 'a6000000-0000-0000-0000-000000000006'}
+              - column: {name: condition_type, value: 'STABILITY_THRESHOLD'}
+              - column: {name: operator, value: 'LT'}
+              - column: {name: threshold_value, valueNumeric: 40}
+              - column: {name: probability, value: null}
+
+        # ─── 7. the-walls-bricks ──────────────────────────────────────────────────
+        - insert:
+            tableName: narrative_events
+            columns:
+              - column: {name: id, value: 'a7000000-0000-0000-0000-000000000007'}
+              - column: {name: title, value: "The Wall's Bricks"}
+              - column: {name: description, value: 'The kingdom has no emergency reserve. One strong wind and the walls will crumble.'}
+              - column: {name: narrative_phase, value: null}
+              - column: {name: required_level, valueNumeric: 1}
+              - column: {name: priority, valueNumeric: 35}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b7000000-0000-0000-0000-000000000001'}
+              - column: {name: narrative_event_id, value: 'a7000000-0000-0000-0000-000000000007'}
+              - column: {name: text, value: 'Start building the emergency reserve now'}
+              - column: {name: description, value: 'Set aside a fixed amount each month, no matter what.'}
+              - column: {name: display_order, valueNumeric: 1}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b7000000-0000-0000-0000-000000000002'}
+              - column: {name: narrative_event_id, value: 'a7000000-0000-0000-0000-000000000007'}
+              - column: {name: text, value: 'Wait until conditions improve'}
+              - column: {name: description, value: 'There will be a better time to start saving.'}
+              - column: {name: display_order, valueNumeric: 2}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c7000000-0000-0000-0000-000000000001'}
+              - column: {name: choice_id, value: 'b7000000-0000-0000-0000-000000000001'}
+              - column: {name: effect_type, value: 'RESILIENCE_CHANGE'}
+              - column: {name: value, valueNumeric: 25}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c7000000-0000-0000-0000-000000000002'}
+              - column: {name: choice_id, value: 'b7000000-0000-0000-0000-000000000001'}
+              - column: {name: effect_type, value: 'GOLD_CHANGE'}
+              - column: {name: value, valueNumeric: -10}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c7000000-0000-0000-0000-000000000003'}
+              - column: {name: choice_id, value: 'b7000000-0000-0000-0000-000000000002'}
+              - column: {name: effect_type, value: 'STABILITY_CHANGE'}
+              - column: {name: value, valueNumeric: -10}
+
+        # trigger rule: RESILIENCE <= 0
+        - insert:
+            tableName: trigger_rules
+            columns:
+              - column: {name: id, value: 'd7000000-0000-0000-0000-000000000001'}
+              - column: {name: narrative_event_id, value: 'a7000000-0000-0000-0000-000000000007'}
+              - column: {name: condition_type, value: 'RESILIENCE_THRESHOLD'}
+              - column: {name: operator, value: 'LTE'}
+              - column: {name: threshold_value, valueNumeric: 0}
+              - column: {name: probability, value: null}
+
+        # ─── 8. the-rulers-choice ─────────────────────────────────────────────────
+        - insert:
+            tableName: narrative_events
+            columns:
+              - column: {name: id, value: 'a8000000-0000-0000-0000-000000000008'}
+              - column: {name: title, value: "The Ruler's Choice"}
+              - column: {name: description, value: 'Gold is available but stability is fragile. The ruler must decide: pay debts, invest, or split the difference.'}
+              - column: {name: narrative_phase, value: null}
+              - column: {name: required_level, valueNumeric: 1}
+              - column: {name: priority, valueNumeric: 25}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b8000000-0000-0000-0000-000000000001'}
+              - column: {name: narrative_event_id, value: 'a8000000-0000-0000-0000-000000000008'}
+              - column: {name: text, value: 'Pay off the outstanding debts'}
+              - column: {name: description, value: 'Reduce obligations and restore peace to the kingdom.'}
+              - column: {name: display_order, valueNumeric: 1}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b8000000-0000-0000-0000-000000000002'}
+              - column: {name: narrative_event_id, value: 'a8000000-0000-0000-0000-000000000008'}
+              - column: {name: text, value: 'Invest the gold for future returns'}
+              - column: {name: description, value: 'Risk stability now for greater wealth later.'}
+              - column: {name: display_order, valueNumeric: 2}
+
+        - insert:
+            tableName: choices
+            columns:
+              - column: {name: id, value: 'b8000000-0000-0000-0000-000000000003'}
+              - column: {name: narrative_event_id, value: 'a8000000-0000-0000-0000-000000000008'}
+              - column: {name: text, value: 'Split: pay half, invest half'}
+              - column: {name: description, value: 'A balanced approach between security and growth.'}
+              - column: {name: display_order, valueNumeric: 3}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c8000000-0000-0000-0000-000000000001'}
+              - column: {name: choice_id, value: 'b8000000-0000-0000-0000-000000000001'}
+              - column: {name: effect_type, value: 'STABILITY_CHANGE'}
+              - column: {name: value, valueNumeric: 20}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c8000000-0000-0000-0000-000000000002'}
+              - column: {name: choice_id, value: 'b8000000-0000-0000-0000-000000000001'}
+              - column: {name: effect_type, value: 'GOLD_CHANGE'}
+              - column: {name: value, valueNumeric: -30}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c8000000-0000-0000-0000-000000000003'}
+              - column: {name: choice_id, value: 'b8000000-0000-0000-0000-000000000002'}
+              - column: {name: effect_type, value: 'MANA_CHANGE'}
+              - column: {name: value, valueNumeric: 20}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c8000000-0000-0000-0000-000000000004'}
+              - column: {name: choice_id, value: 'b8000000-0000-0000-0000-000000000002'}
+              - column: {name: effect_type, value: 'STABILITY_CHANGE'}
+              - column: {name: value, valueNumeric: -10}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c8000000-0000-0000-0000-000000000005'}
+              - column: {name: choice_id, value: 'b8000000-0000-0000-0000-000000000003'}
+              - column: {name: effect_type, value: 'STABILITY_CHANGE'}
+              - column: {name: value, valueNumeric: 10}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c8000000-0000-0000-0000-000000000006'}
+              - column: {name: choice_id, value: 'b8000000-0000-0000-0000-000000000003'}
+              - column: {name: effect_type, value: 'GOLD_CHANGE'}
+              - column: {name: value, valueNumeric: -15}
+
+        - insert:
+            tableName: effects
+            columns:
+              - column: {name: id, value: 'c8000000-0000-0000-0000-000000000007'}
+              - column: {name: choice_id, value: 'b8000000-0000-0000-0000-000000000003'}
+              - column: {name: effect_type, value: 'MANA_CHANGE'}
+              - column: {name: value, valueNumeric: 10}
+
+        # trigger rules: GOLD > 50 AND STABILITY < 70
+        - insert:
+            tableName: trigger_rules
+            columns:
+              - column: {name: id, value: 'd8000000-0000-0000-0000-000000000001'}
+              - column: {name: narrative_event_id, value: 'a8000000-0000-0000-0000-000000000008'}
+              - column: {name: condition_type, value: 'GOLD_THRESHOLD'}
+              - column: {name: operator, value: 'GT'}
+              - column: {name: threshold_value, valueNumeric: 50}
+              - column: {name: probability, value: null}
+
+        - insert:
+            tableName: trigger_rules
+            columns:
+              - column: {name: id, value: 'd8000000-0000-0000-0000-000000000002'}
+              - column: {name: narrative_event_id, value: 'a8000000-0000-0000-0000-000000000008'}
+              - column: {name: condition_type, value: 'STABILITY_THRESHOLD'}
+              - column: {name: operator, value: 'LT'}
+              - column: {name: threshold_value, valueNumeric: 70}
+              - column: {name: probability, value: null}
