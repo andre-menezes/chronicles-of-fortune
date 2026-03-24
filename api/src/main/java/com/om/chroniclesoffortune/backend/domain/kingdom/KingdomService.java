@@ -22,7 +22,7 @@ public class KingdomService {
     @Transactional
     public KingdomSummaryResponse createKingdom(User user, CreateKingdomRequest request) {
         if (kingdomRepository.findByUserId(user.getId()).isPresent()) {
-            throw new IllegalStateException("User already has a kingdom");
+            throw new IllegalStateException("KINGDOM_ALREADY_EXISTS");
         }
 
         Kingdom kingdom = kingdomRepository.saveAndFlush(
@@ -56,10 +56,10 @@ public class KingdomService {
 
     public KingdomSummaryResponse getMyKingdom(User user) {
         Kingdom kingdom = kingdomRepository.findByUserId(user.getId())
-                .orElseThrow(() -> new NoSuchElementException("Kingdom not found for user"));
+                .orElseThrow(() -> new NoSuchElementException("KINGDOM_NOT_FOUND"));
 
         KingdomState state = kingdomStateRepository.findByKingdomId(kingdom.getId())
-                .orElseThrow(() -> new NoSuchElementException("Kingdom state not found"));
+                .orElseThrow(() -> new NoSuchElementException("KINGDOM_NOT_FOUND"));
 
         return toSummary(kingdom, state);
     }
