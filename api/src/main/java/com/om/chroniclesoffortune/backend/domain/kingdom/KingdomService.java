@@ -1,9 +1,12 @@
 package com.om.chroniclesoffortune.backend.domain.kingdom;
 
+import com.om.chroniclesoffortune.backend.domain.behaviorlog.UserAction;
+import com.om.chroniclesoffortune.backend.domain.behaviorlog.UserActionEvent;
 import com.om.chroniclesoffortune.backend.domain.kingdom.dto.*;
 import com.om.chroniclesoffortune.backend.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +21,7 @@ public class KingdomService {
     private final KingdomRepository kingdomRepository;
     private final KingdomStateRepository kingdomStateRepository;
     private final PlayerProgressRepository playerProgressRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
     public KingdomSummaryResponse createKingdom(User user, CreateKingdomRequest request) {
@@ -50,6 +54,8 @@ public class KingdomService {
                         .experiencePoints(0)
                         .build()
         );
+
+        eventPublisher.publishEvent(new UserActionEvent(user, UserAction.KINGDOM_CREATED, null));
 
         return toSummary(kingdom, state);
     }

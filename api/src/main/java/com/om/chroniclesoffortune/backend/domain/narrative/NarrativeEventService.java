@@ -1,5 +1,7 @@
 package com.om.chroniclesoffortune.backend.domain.narrative;
 
+import com.om.chroniclesoffortune.backend.domain.behaviorlog.UserAction;
+import com.om.chroniclesoffortune.backend.domain.behaviorlog.UserActionEvent;
 import com.om.chroniclesoffortune.backend.domain.kingdom.KingdomRepository;
 import com.om.chroniclesoffortune.backend.domain.kingdom.KingdomState;
 import com.om.chroniclesoffortune.backend.domain.kingdom.KingdomStateRepository;
@@ -10,6 +12,7 @@ import com.om.chroniclesoffortune.backend.domain.narrative.dto.*;
 import com.om.chroniclesoffortune.backend.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +35,7 @@ public class NarrativeEventService {
     private final KingdomRepository kingdomRepository;
     private final KingdomStateRepository kingdomStateRepository;
     private final PlayerProgressRepository playerProgressRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     public Optional<NarrativeEventSummaryResponse> getNextEvent(User user) {
         var kingdom = kingdomRepository.findByUserId(user.getId())
@@ -106,6 +110,9 @@ public class NarrativeEventService {
                         .resolvedAt(LocalDateTime.now())
                         .build()
         );
+
+        eventPublisher.publishEvent(new UserActionEvent(user, UserAction.NARRATIVE_CHOICE_RESOLVED,
+                "{\"eventId\":\"" + eventId + "\",\"choiceId\":\"" + choiceId + "\"}"));
 
         return new ResolveChoiceResponse(
                 new KingdomStateResponse(state.getGold(), state.getMana(), state.getResilience(), state.getStability()),

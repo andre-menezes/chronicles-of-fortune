@@ -1,5 +1,7 @@
 package com.om.chroniclesoffortune.backend.domain.income;
 
+import com.om.chroniclesoffortune.backend.domain.behaviorlog.UserAction;
+import com.om.chroniclesoffortune.backend.domain.behaviorlog.UserActionEvent;
 import com.om.chroniclesoffortune.backend.domain.income.dto.CreateIncomeSourceRequest;
 import com.om.chroniclesoffortune.backend.domain.income.dto.IncomeSourceResponse;
 import com.om.chroniclesoffortune.backend.domain.income.dto.UpdateIncomeSourceRequest;
@@ -7,6 +9,7 @@ import com.om.chroniclesoffortune.backend.domain.kingdom.KingdomRepository;
 import com.om.chroniclesoffortune.backend.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +24,7 @@ public class IncomeSourceService {
 
     private final IncomeSourceRepository incomeSourceRepository;
     private final KingdomRepository kingdomRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
     public IncomeSourceResponse create(User user, CreateIncomeSourceRequest request) {
@@ -37,6 +41,9 @@ public class IncomeSourceService {
                         .active(true)
                         .build()
         );
+
+        eventPublisher.publishEvent(new UserActionEvent(user, UserAction.INCOME_SOURCE_CREATED,
+                "{\"type\":\"" + saved.getType().name() + "\"}"));
 
         return toResponse(saved);
     }
@@ -61,13 +68,16 @@ public class IncomeSourceService {
         if (request.amount() != null) source.setAmount(request.amount());
         if (request.active() != null) source.setActive(request.active());
 
-        return toResponse(incomeSourceRepository.save(source));
+        IncomeSourceResponse response = toResponse(incomeSourceRepository.save(source));
+        eventPublisher.publishEvent(new UserActionEvent(user, UserAction.INCOME_SOURCE_UPDATED, null));
+        return response;
     }
 
     @Transactional
     public void delete(User user, UUID id) {
         getOwnedOrThrow(user, id);
         incomeSourceRepository.deleteById(id);
+        eventPublisher.publishEvent(new UserActionEvent(user, UserAction.INCOME_SOURCE_DELETED, null));
     }
 
     // ─── private helpers ──────────────────────────────────────────────────────
